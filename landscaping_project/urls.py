@@ -21,11 +21,11 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('core.urls')),
-    path('services/', include('services.urls')),
-    path('gallery/', include('gallery.urls')),
-    path('bookings/', include('bookings.urls')),
-    path('accounts/', include('accounts.urls')),
+    path('', include(('core.urls', 'core'), namespace='core')),
+    path('services/', include(('services.urls', 'services'), namespace='services')),
+    path('gallery/', include(('gallery.urls', 'gallery'), namespace='gallery')),
+    path('bookings/', include(('bookings.urls', 'bookings'), namespace='bookings')),
+    path('accounts/', include(('accounts.urls', 'accounts'), namespace='accounts')),
     path('accounts/', include('django.contrib.auth.urls')),  # Django's built-in auth views
 ]
 

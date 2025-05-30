@@ -38,6 +38,14 @@ class ServiceDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         # Get related projects that might showcase this service
         service = self.get_object()
-        context['related_projects'] = Portfolio.objects.filter(category__in=service.category.portfolio_items.all().values_list('category', flat=True))[:4]
-        context['related_services'] = Service.objects.filter(category=service.category).exclude(id=service.id)[:3]
+        # Get related services first
+        context['related_services'] = Service.objects.filter(
+            category=service.category
+        ).exclude(id=service.id)[:3]
+        
+        # Get related portfolio items if any exist for this service category
+        context['related_projects'] = Portfolio.objects.filter(
+            service_categories=service.category
+        )[:4]
+        
         return context

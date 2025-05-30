@@ -24,8 +24,8 @@ A comprehensive website for a landscaping service business built with Django. Th
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd landscaping
+git clone https://github.com/dhnraihan/Green-Landscapes.git
+cd Green-Landscapes
 ```
 
 2. Create and activate a virtual environment:

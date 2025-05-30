@@ -17,12 +17,12 @@
 <section class="py-8 bg-gray-50">
     <div class="container mx-auto px-4">
         <div class="flex flex-wrap justify-center gap-4 items-center">
-            <a href="{% url 'services' %}" class="bg-{% if not category %}green-600{% else %}white{% endif %} text-{% if not category %}white{% else %}green-700{% endif %} px-4 py-2 rounded-full shadow-sm hover:shadow-md transition duration-300">
+            <a href="{% url 'services:services' %}" class="bg-{% if not category %}green-600{% else %}white{% endif %} text-{% if not category %}white{% else %}green-700{% endif %} px-4 py-2 rounded-full shadow-sm hover:shadow-md transition duration-300">
                 All Services
             </a>
             
             {% for cat in categories %}
-            <a href="{% url 'service_category' cat.slug %}" class="bg-{% if category.slug == cat.slug %}green-600{% else %}white{% endif %} text-{% if category.slug == cat.slug %}white{% else %}green-700{% endif %} px-4 py-2 rounded-full shadow-sm hover:shadow-md transition duration-300">
+            <a href="{% url 'services:service_category' cat.slug %}" class="bg-{% if category.slug == cat.slug %}green-600{% else %}white{% endif %} text-{% if category.slug == cat.slug %}white{% else %}green-700{% endif %} px-4 py-2 rounded-full shadow-sm hover:shadow-md transition duration-300">
                 {{ cat.name }}
             </a>
             {% endfor %}
@@ -65,10 +65,10 @@
                     
                     <div class="px-6 pb-6 mt-auto">
                         <div class="flex flex-wrap gap-3">
-                            <a href="{% url 'service_detail' service.slug %}" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-300">
+                            <a href="{% url 'services:service_detail' service.slug %}" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-300">
                                 Learn More
                             </a>
-                            <a href="{% url 'book_service' service.id %}" class="inline-block bg-white hover:bg-gray-100 text-green-700 font-bold py-2 px-4 rounded border border-green-600 transition duration-300">
+                            <a href="{% url 'bookings:book_service' service.id %}" class="inline-block bg-white hover:bg-gray-100 text-green-700 font-bold py-2 px-4 rounded border border-green-600 transition duration-300">
                                 Book Now
                             </a>
                         </div>
@@ -89,7 +89,7 @@
     <div class="container mx-auto px-4 text-center">
         <h2 class="text-3xl font-bold mb-4">Don't See What You Need?</h2>
         <p class="text-xl mb-8 max-w-3xl mx-auto">We offer custom landscaping solutions tailored to your specific requirements. Contact us to discuss your project.</p>
-        <a href="{% url 'contact' %}" class="inline-block bg-white hover:bg-gray-100 text-green-800 font-bold py-3 px-6 rounded-lg transition duration-300">
+        <a href="{% url 'core:contact' %}" class="inline-block bg-white hover:bg-gray-100 text-green-800 font-bold py-3 px-6 rounded-lg transition duration-300">
             Request a Custom Service
         </a>
     </div>

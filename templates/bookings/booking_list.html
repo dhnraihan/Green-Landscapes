@@ -63,7 +63,7 @@
                 {% else %}
                     <div class="bg-white p-6 rounded-lg shadow-md text-center">
                         <p class="text-gray-600 mb-4">You don't have any upcoming bookings.</p>
-                        <a href="{% url 'bookings' %}" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-300">
+                        <a href="{% url 'bookings:bookings' %}" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-300">
                             Book a Service
                         </a>
                     </div>
@@ -128,7 +128,7 @@
     <div class="container mx-auto px-4 text-center">
         <h2 class="text-3xl font-bold mb-4">Need Another Service?</h2>
         <p class="text-xl mb-8 max-w-3xl mx-auto">Book your next landscaping service with us today.</p>
-        <a href="{% url 'bookings' %}" class="inline-block bg-white hover:bg-gray-100 text-green-800 font-bold py-3 px-6 rounded-lg transition duration-300">
+        <a href="{% url 'bookings:bookings' %}" class="inline-block bg-white hover:bg-gray-100 text-green-800 font-bold py-3 px-6 rounded-lg transition duration-300">
             Book Another Service
         </a>
     </div>

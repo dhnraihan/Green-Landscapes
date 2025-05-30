@@ -10,10 +10,10 @@
         <h1 class="text-4xl md:text-6xl font-bold mb-4 animate-on-scroll">Transform Your Outdoor Space</h1>
         <p class="text-xl mb-8 animate-on-scroll">Professional landscaping services to enhance your property's beauty and value</p>
         <div class="flex flex-wrap justify-center gap-4">
-            <a href="{% url 'services' %}" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:-translate-y-1">
+            <a href="{% url 'services:services' %}" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:-translate-y-1">
                 Our Services
             </a>
-            <a href="{% url 'bookings' %}" class="bg-white hover:bg-gray-100 text-green-800 font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:-translate-y-1">
+            <a href="{% url 'bookings:bookings' %}" class="bg-white hover:bg-gray-100 text-green-800 font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:-translate-y-1">
                 Book Now
             </a>
         </div>
@@ -52,7 +52,7 @@
                         {% else %}
                         <span class="text-green-600 font-bold">Contact for pricing</span>
                         {% endif %}
-                        <a href="{% url 'service_detail' service.slug %}" class="text-green-800 hover:text-green-600">
+                        <a href="{% url 'services:service_detail' service.slug %}" class="text-green-800 hover:text-green-600">
                             View Details →
                         </a>
                     </div>
@@ -66,7 +66,7 @@
         </div>
         
         <div class="text-center mt-10">
-            <a href="{% url 'services' %}" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+            <a href="{% url 'services:services' %}" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
                 View All Services
             </a>
         </div>
@@ -137,7 +137,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {% for project in featured_projects %}
             <div class="gallery-item rounded-lg overflow-hidden shadow-md">
-                <a href="{% url 'gallery' %}">
+                <a href="{% url 'gallery:gallery' %}">
                     <div class="relative overflow-hidden">
                         {% if project.image %}
                             <img src="{{ project.image.url }}" alt="{{ project.title }}" class="w-full h-64 object-cover gallery-image">
@@ -161,7 +161,7 @@
         </div>
         
         <div class="text-center mt-10">
-            <a href="{% url 'gallery' %}" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+            <a href="{% url 'gallery:gallery' %}" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
                 View Our Gallery
             </a>
         </div>
@@ -204,7 +204,7 @@
             </div>
             
             <div class="text-center mt-8">
-                <a href="{% url 'before_after' %}" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300">
+                <a href="{% url 'gallery:before_after' %}" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300">
                     View More Transformations
                 </a>
             </div>
@@ -265,10 +265,10 @@
         <h2 class="text-3xl font-bold mb-4">Ready to Transform Your Outdoor Space?</h2>
         <p class="text-xl mb-8 max-w-3xl mx-auto">Whether you need regular lawn maintenance, a complete garden redesign, or anything in between, we're here to help you create the outdoor space of your dreams.</p>
         <div class="flex flex-wrap justify-center gap-4">
-            <a href="{% url 'contact' %}" class="bg-white hover:bg-gray-100 text-green-800 font-bold py-3 px-6 rounded-lg transition duration-300">
+            <a href="{% url 'core:contact' %}" class="bg-white hover:bg-gray-100 text-green-800 font-bold py-3 px-6 rounded-lg transition duration-300">
                 Contact Us
             </a>
-            <a href="{% url 'bookings' %}" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg border border-green-600 transition duration-300">
+            <a href="{% url 'bookings:bookings' %}" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg border border-green-600 transition duration-300">
                 Book Now
             </a>
         </div>

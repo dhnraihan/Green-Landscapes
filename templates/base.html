@@ -15,21 +15,21 @@
         <div class="container mx-auto px-4">
             <div class="flex justify-between items-center py-4">
                 <div class="flex items-center">
-                    <a href="{% url 'home' %}" class="text-2xl font-bold">Green Landscapes</a>
+                    <a href="{% url 'core:home' %}" class="text-2xl font-bold">Green Landscapes</a>
                 </div>
-                <div class="hidden md:flex space-x-6"">
-                    <a href="{% url 'home' %}" class="hover:text-green-200 transition duration-300">Home</a>
-                    <a href="{% url 'services:service_list' %}" class="hover:text-green-200 transition duration-300">Services</a>
+                <div class="hidden md:flex space-x-6">
+                    <a href="{% url 'core:home' %}" class="hover:text-green-200 transition duration-300">Home</a>
+                    <a href="{% url 'services:services' %}" class="hover:text-green-200 transition duration-300">Services</a>
                     <a href="{% url 'gallery:gallery' %}" class="hover:text-green-200 transition duration-300">Gallery</a>
-                    <a href="{% url 'bookings:book_service' %}" class="hover:text-green-200 transition duration-300">Book Now</a>
+                    <a href="{% url 'bookings:bookings' %}" class="hover:text-green-200 transition duration-300">Book Now</a>
                     <a href="{% url 'core:contact' %}" class="hover:text-green-200 transition duration-300">Contact</a>
                 </div>
                 <div class="hidden md:flex space-x-6">
                     {% if user.is_authenticated %}
                         <a href="{% url 'accounts:dashboard' %}" class="hover:text-green-200 transition duration-300">Dashboard</a>
-                        <a href="{% url 'account_logout' %}" class="hover:text-green-200 transition duration-300">Logout</a>
+                        <a href="{% url 'logout' %}" class="hover:text-green-200 transition duration-300">Logout</a>
                     {% else %}
-                        <a href="{% url 'account_login' %}" class="hover:text-green-200 transition duration-300">Login</a>
+                        <a href="{% url 'login' %}" class="hover:text-green-200 transition duration-300">Login</a>
                         <a href="{% url 'accounts:register' %}" class="hover:text-green-200 transition duration-300">Register</a>
                     {% endif %}
                 </div>
@@ -43,11 +43,11 @@
             </div>
             <!-- Mobile Menu -->
             <div id="mobile-menu" class="md:hidden hidden pb-4">
-                <a href="{% url 'home' %}" class="block py-2 hover:text-green-200 transition duration-300">Home</a>
-                <a href="{% url 'services' %}" class="block py-2 hover:text-green-200 transition duration-300">Services</a>
-                <a href="{% url 'gallery' %}" class="block py-2 hover:text-green-200 transition duration-300">Gallery</a>
-                <a href="{% url 'bookings' %}" class="block py-2 hover:text-green-200 transition duration-300">Book Now</a>
-                <a href="{% url 'contact' %}" class="block py-2 hover:text-green-200 transition duration-300">Contact</a>
+                <a href="{% url 'core:home' %}" class="block py-2 hover:text-green-200 transition duration-300">Home</a>
+                <a href="{% url 'services:services' %}" class="block py-2 hover:text-green-200 transition duration-300">Services</a>
+                <a href="{% url 'gallery:gallery' %}" class="block py-2 hover:text-green-200 transition duration-300">Gallery</a>
+                <a href="{% url 'bookings:bookings' %}" class="block py-2 hover:text-green-200 transition duration-300">Book Now</a>
+                <a href="{% url 'core:contact' %}" class="block py-2 hover:text-green-200 transition duration-300">Contact</a>
                 {% if user.is_authenticated %}
                     <a href="{% url 'accounts:dashboard' %}" class="block py-2 hover:text-green-200 transition duration-300">Dashboard</a>
                     <a href="{% url 'logout' %}" class="block py-2 hover:text-green-200 transition duration-300">Logout</a>
@@ -75,11 +75,11 @@
                 <div>
                     <h3 class="text-xl font-bold mb-4">Quick Links</h3>
                     <ul class="space-y-2">
-                        <li><a href="{% url 'home' %}" class="hover:text-green-200 transition duration-300">Home</a></li>
-                        <li><a href="{% url 'services' %}" class="hover:text-green-200 transition duration-300">Services</a></li>
-                        <li><a href="{% url 'gallery' %}" class="hover:text-green-200 transition duration-300">Gallery</a></li>
-                        <li><a href="{% url 'bookings' %}" class="hover:text-green-200 transition duration-300">Book Now</a></li>
-                        <li><a href="{% url 'contact' %}" class="hover:text-green-200 transition duration-300">Contact</a></li>
+                        <li><a href="{% url 'core:home' %}" class="hover:text-green-200 transition duration-300">Home</a></li>
+                        <li><a href="{% url 'services:services' %}" class="hover:text-green-200 transition duration-300">Services</a></li>
+                        <li><a href="{% url 'gallery:gallery' %}" class="hover:text-green-200 transition duration-300">Gallery</a></li>
+                        <li><a href="{% url 'bookings:bookings' %}" class="hover:text-green-200 transition duration-300">Book Now</a></li>
+                        <li><a href="{% url 'core:contact' %}" class="hover:text-green-200 transition duration-300">Contact</a></li>
                     </ul>
                 </div>
                 <div>
