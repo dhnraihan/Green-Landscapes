@@ -1,5 +1,15 @@
+import os
+import uuid
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+
+def get_testimonial_image_path(instance, filename):
+    """Generate a random filename for testimonial images."""
+    ext = filename.split('.')[-1].lower()
+    # Create a random filename using UUID
+    filename = f"{uuid.uuid4().hex}.{ext}"
+    # Create a path with first two characters of the filename as subdirectories
+    return os.path.join('testimonials', filename[0:2], filename[2:4], filename)
 
 class Testimonial(models.Model):
     name = models.CharField(max_length=100)
@@ -7,7 +17,7 @@ class Testimonial(models.Model):
     company = models.CharField(max_length=100, blank=True)
     testimonial = models.TextField()
     rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], default=5)
-    image = models.ImageField(upload_to='testimonials/', blank=True, null=True)
+    image = models.ImageField(upload_to=get_testimonial_image_path, blank=True, null=True)
     is_featured = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     

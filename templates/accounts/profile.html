@@ -99,10 +99,10 @@
                 
                 <div class="p-6">
                     <div class="flex flex-wrap gap-4">
-                        <a href="{% url 'dashboard' %}" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-300">
+                        <a href="{% url 'accounts:dashboard' %}" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-300">
                             Go to Dashboard
                         </a>
-                        <a href="{% url 'booking_list' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300">
+                        <a href="{% url 'bookings:booking_list' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300">
                             View My Bookings
                         </a>
                         <a href="{% url 'logout' %}" class="inline-block bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-300">

@@ -145,8 +145,9 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Authentication settings
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'home'
+LOGIN_URL = 'login'  # This tells Django where to find the login page
+LOGIN_REDIRECT_URL = 'accounts:profile'  # Where to redirect after login
+LOGOUT_REDIRECT_URL = 'core:home'  # Where to redirect after logout
 
 # Email settings (for development)
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

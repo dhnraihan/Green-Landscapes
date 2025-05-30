@@ -1,6 +1,16 @@
+import os
+import uuid
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
+
+def get_upload_path(instance, filename):
+    """Generate a random filename for uploaded files."""
+    ext = filename.split('.')[-1].lower()
+    # Create a random filename using UUID
+    filename = f"{uuid.uuid4().hex}.{ext}"
+    # Create a path with first two characters of the filename as subdirectories
+    return os.path.join('services', filename[0:2], filename[2:4], filename)
 
 class ServiceCategory(models.Model):
     name = models.CharField(max_length=100)
@@ -26,7 +36,7 @@ class Service(models.Model):
     short_description = models.CharField(max_length=255, blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True, help_text="Leave blank if price varies")
     price_suffix = models.CharField(max_length=20, blank=True, help_text="e.g. 'per hour', 'per visit'")
-    image = models.ImageField(upload_to='services/', blank=True, null=True)
+    image = models.ImageField(upload_to=get_upload_path, blank=True, null=True)
     slug = models.SlugField(max_length=220, unique=True, blank=True)
     is_featured = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)

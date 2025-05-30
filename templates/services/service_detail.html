@@ -87,10 +87,10 @@
                     {% endif %}
                     
                     <div class="mt-6">
-                        <a href="{% url 'book_service' service.id %}" class="block text-center bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300 w-full mb-3">
+                        <a href="{% url 'bookings:book_service' service.id %}" class="block text-center bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300 w-full mb-3">
                             Book This Service
                         </a>
-                        <a href="{% url 'contact' %}" class="block text-center bg-white hover:bg-gray-100 text-green-700 font-bold py-3 px-4 rounded-lg border border-green-600 transition duration-300 w-full">
+                        <a href="{% url 'core:contact' %}" class="block text-center bg-white hover:bg-gray-100 text-green-700 font-bold py-3 px-4 rounded-lg border border-green-600 transition duration-300 w-full">
                             Request Information
                         </a>
                     </div>
@@ -103,7 +103,7 @@
                     <ul class="divide-y divide-gray-200">
                         {% for related in related_services %}
                         <li class="py-3">
-                            <a href="{% url 'service_detail' related.slug %}" class="flex items-center hover:text-green-600 transition duration-300">
+                            <a href="{% url 'services:service_detail' related.slug %}" class="flex items-center hover:text-green-600 transition duration-300">
                                 {% if related.image %}
                                 <img src="{{ related.image.url }}" alt="{{ related.name }}" class="w-12 h-12 object-cover rounded-md mr-3">
                                 {% else %}
@@ -134,10 +134,10 @@
         <h2 class="text-3xl font-bold mb-4">Ready to Transform Your Outdoor Space?</h2>
         <p class="text-xl mb-8 max-w-3xl mx-auto">Our professional team is ready to help you bring your landscaping vision to life.</p>
         <div class="flex flex-wrap justify-center gap-4">
-            <a href="{% url 'contact' %}" class="bg-white hover:bg-gray-100 text-green-800 font-bold py-3 px-6 rounded-lg transition duration-300">
+            <a href="{% url 'core:contact' %}" class="bg-white hover:bg-gray-100 text-green-800 font-bold py-3 px-6 rounded-lg transition duration-300">
                 Contact Us
             </a>
-            <a href="{% url 'book_service' service.id %}" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg border border-green-600 transition duration-300">
+            <a href="{% url 'bookings:book_service' service.id %}" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg border border-green-600 transition duration-300">
                 Book Now
             </a>
         </div>

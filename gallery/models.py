@@ -1,5 +1,16 @@
+import os
+import uuid
 from django.db import models
 from django.utils.text import slugify
+
+def get_upload_path(instance, filename):
+    """Generate a random filename for uploaded files."""
+    ext = filename.split('.')[-1].lower()
+    # Create a random filename using UUID
+    filename = f"{uuid.uuid4().hex}.{ext}"
+    # Create a path with first two characters of the filename as subdirectories
+    # This helps avoid having too many files in a single directory
+    return os.path.join('gallery', filename[0:2], filename[2:4], filename)
 
 class GalleryCategory(models.Model):
     name = models.CharField(max_length=100)
@@ -21,7 +32,7 @@ class Portfolio(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
     category = models.ForeignKey(GalleryCategory, on_delete=models.CASCADE, related_name='portfolio_items')
-    image = models.ImageField(upload_to='portfolio/', null=True, blank=True)
+    image = models.ImageField(upload_to=get_upload_path, null=True, blank=True)
     location = models.CharField(max_length=255, blank=True)
     completion_date = models.DateField(blank=True, null=True)
     is_featured = models.BooleanField(default=False)
@@ -37,8 +48,8 @@ class BeforeAfterImage(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
     category = models.ForeignKey(GalleryCategory, on_delete=models.CASCADE, related_name='before_after_images')
-    before_image = models.ImageField(upload_to='before_after/before/', null=True, blank=True)
-    after_image = models.ImageField(upload_to='before_after/after/', null=True, blank=True)
+    before_image = models.ImageField(upload_to=get_upload_path, null=True, blank=True)
+    after_image = models.ImageField(upload_to=get_upload_path, null=True, blank=True)
     location = models.CharField(max_length=255, blank=True)
     completion_date = models.DateField(blank=True, null=True)
     is_featured = models.BooleanField(default=False)
