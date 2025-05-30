@@ -135,10 +135,10 @@
                 <!-- Actions -->
                 <div class="px-6 py-4 bg-gray-50 border-t border-gray-200">
                     <div class="flex flex-wrap gap-3">
-                        <a href="{% url 'booking_list' %}" class="inline-block bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded transition duration-300">
+                        <a href="{% url 'bookings:booking_list' %}" class="inline-block bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded transition duration-300">
                             Back to Bookings
                         </a>
-                        <a href="{% url 'contact' %}" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-300">
+                        <a href="{% url 'core:contact' %}" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-300">
                             Contact Support
                         </a>
                     </div>
@@ -152,7 +152,7 @@
                 </div>
                 <div class="p-6">
                     <p class="text-gray-700 mb-4">{{ booking.service.description }}</p>
-                    <a href="{% url 'service_detail' booking.service.slug %}" class="text-green-600 hover:text-green-800 font-medium">
+                    <a href="{% url 'services:service_detail' booking.service.slug %}" class="text-green-600 hover:text-green-800 font-medium">
                         View Service Details →
                     </a>
                 </div>
@@ -173,7 +173,7 @@
                 </svg>
                 Call Us
             </a>
-            <a href="{% url 'contact' %}" class="inline-flex items-center bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+            <a href="{% url 'core:contact' %}" class="inline-flex items-center bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
                 <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                 </svg>

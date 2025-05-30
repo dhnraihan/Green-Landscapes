@@ -14,7 +14,7 @@ class BookingCreateView(LoginRequiredMixin, CreateView):
     model = Booking
     form_class = BookingForm
     template_name = 'bookings/booking_create.html'
-    success_url = reverse_lazy('booking_success')
+    success_url = reverse_lazy('bookings:booking_success')
     
     def get_initial(self):
         initial = super().get_initial()
