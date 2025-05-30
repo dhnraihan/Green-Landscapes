@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Frequently Asked Questions - Green Landscapes{% endblock %}
+
+{% block content %}
+<!-- FAQ Header -->
+<section class="bg-green-800 text-white py-16">
+    <div class="container mx-auto px-4 text-center">
+        <h1 class="text-4xl font-bold mb-4">Frequently Asked Questions</h1>
+        <p class="text-xl max-w-3xl mx-auto">Find answers to common questions about our landscaping services</p>
+    </div>
+</section>
+
+<!-- FAQ Content -->
+<section class="py-16">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            {% if faqs %}
+                <div class="space-y-6">
+                    {% for faq in faqs %}
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                            <button class="flex justify-between items-center w-full p-5 text-left font-bold" onclick="toggleFAQ(this)">
+                                <span>{{ faq.question }}</span>
+                                <svg class="h-5 w-5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                            <div class="hidden p-5 pt-0 border-t">
+                                <p class="text-gray-700">{{ faq.answer|linebreaks }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="text-center py-12">
+                    <p class="text-gray-600">Our FAQ section is currently being updated. Please check back soon or contact us directly with your questions.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<!-- Contact CTA -->
+<section class="py-12 bg-gray-50">
+    <div class="container mx-auto px-4 text-center">
+        <h2 class="text-2xl font-bold mb-4">Still Have Questions?</h2>
+        <p class="text-lg mb-6 max-w-3xl mx-auto">If you couldn't find the answer to your question, our team is always ready to help.</p>
+        <a href="{% url 'contact' %}" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+            Contact Us
+        </a>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function toggleFAQ(button) {
+        const content = button.nextElementSibling;
+        const arrow = button.querySelector('svg');
+        
+        if (content.classList.contains('hidden')) {
+            content.classList.remove('hidden');
+            arrow.classList.add('rotate-180');
+        } else {
+            content.classList.add('hidden');
+            arrow.classList.remove('rotate-180');
+        }
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,132 @@
+/* Custom styles for Green Landscapes */
+
+/* Hero section */
+.hero {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/static/images/hero-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 600px;
+}
+
+/* Service cards */
+.service-card {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Testimonials */
+.testimonial-card {
+    border-left: 4px solid #16a34a;
+}
+
+/* Gallery */
+.gallery-item {
+    overflow: hidden;
+}
+
+.gallery-image {
+    transition: transform 0.5s ease;
+}
+
+.gallery-item:hover .gallery-image {
+    transform: scale(1.05);
+}
+
+/* Contact form */
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: #16a34a;
+    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.2);
+}
+
+/* Booking form */
+.booking-form select:focus,
+.booking-form input:focus,
+.booking-form textarea:focus {
+    border-color: #16a34a;
+    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.2);
+}
+
+/* Before/After slider */
+.before-after-slider {
+    position: relative;
+    overflow: hidden;
+}
+
+.slider-before,
+.slider-after {
+    width: 100%;
+    height: 100%;
+}
+
+.slider-before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    overflow: hidden;
+}
+
+.slider-handle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 4px;
+    background: #fff;
+    cursor: ew-resize;
+    z-index: 10;
+}
+
+.slider-handle::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Custom button styles */
+.btn-primary {
+    background-color: #16a34a;
+    border-color: #16a34a;
+}
+
+.btn-primary:hover {
+    background-color: #15803d;
+    border-color: #15803d;
+}
+
+/* Dashboard */
+.dashboard-card {
+    transition: transform 0.2s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-3px);
+}
+
+/* Animations */
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

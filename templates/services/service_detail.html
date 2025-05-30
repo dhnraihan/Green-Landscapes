@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ service.name }} - Green Landscapes{% endblock %}
+
+{% block content %}
+<!-- Service Header -->
+<section class="bg-green-800 text-white py-16">
+    <div class="container mx-auto px-4 text-center">
+        <h1 class="text-4xl font-bold mb-4">{{ service.name }}</h1>
+        <p class="text-xl max-w-3xl mx-auto">{{ service.short_description }}</p>
+    </div>
+</section>
+
+<!-- Service Details -->
+<section class="py-16">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            <!-- Main Content -->
+            <div class="lg:col-span-2">
+                {% if service.image %}
+                    <img src="{{ service.image.url }}" alt="{{ service.name }}" class="w-full h-auto rounded-lg shadow-md mb-8">
+                {% else %}
+                    <div class="w-full h-64 bg-green-100 flex items-center justify-center rounded-lg shadow-md mb-8">
+                        <span class="text-green-600 text-4xl">
+                            <svg class="h-16 w-16" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M4.553 15.776l.706-.638a7.5 7.5 0 019.553-9.553l.638-.706a8.5 8.5 0 00-10.897 10.897z" clip-rule="evenodd"></path>
+                                <path fill-rule="evenodd" d="M5.354 10.354a5 5 0 10-.708-.708l-3 3a.5.5 0 00.708.708l3-3z" clip-rule="evenodd"></path>
+                            </svg>
+                        </span>
+                    </div>
+                {% endif %}
+                
+                <div class="prose prose-lg max-w-none">
+                    {{ service.description|linebreaks }}
+                </div>
+                
+                <!-- Related Projects -->
+                {% if related_projects %}
+                <div class="mt-12">
+                    <h2 class="text-2xl font-bold mb-6">Projects Featuring This Service</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {% for project in related_projects %}
+                        <div class="gallery-item rounded-lg overflow-hidden shadow-md">
+                            <a href="{% url 'gallery' %}">
+                                <div class="relative overflow-hidden">
+                                    {% if project.image %}
+                                        <img src="{{ project.image.url }}" alt="{{ project.title }}" class="w-full h-64 object-cover gallery-image">
+                                    {% else %}
+                                        <div class="w-full h-64 bg-green-100 flex items-center justify-center">
+                                            <span class="text-green-800 font-semibold">{{ project.title }}</span>
+                                        </div>
+                                    {% endif %}
+                                    <div class="absolute inset-0 bg-black bg-opacity-40 flex items-end">
+                                        <div class="p-4 text-white">
+                                            <h3 class="font-bold">{{ project.title }}</h3>
+                                            {% if project.location %}
+                                            <p>{{ project.location }}</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Sidebar -->
+            <div>
+                <!-- Service Info Card -->
+                <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <h3 class="text-xl font-bold mb-4 text-green-800">Service Information</h3>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-bold text-gray-700">Category:</h4>
+                        <p>{{ service.category.name }}</p>
+                    </div>
+                    
+                    {% if service.price %}
+                    <div class="mb-4">
+                        <h4 class="font-bold text-gray-700">Price:</h4>
+                        <p class="text-green-700 font-bold text-xl">${{ service.price }} <span class="text-sm font-normal text-gray-600">{{ service.price_suffix }}</span></p>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="mt-6">
+                        <a href="{% url 'book_service' service.id %}" class="block text-center bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300 w-full mb-3">
+                            Book This Service
+                        </a>
+                        <a href="{% url 'contact' %}" class="block text-center bg-white hover:bg-gray-100 text-green-700 font-bold py-3 px-4 rounded-lg border border-green-600 transition duration-300 w-full">
+                            Request Information
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Related Services -->
+                {% if related_services %}
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold mb-4 text-green-800">Related Services</h3>
+                    <ul class="divide-y divide-gray-200">
+                        {% for related in related_services %}
+                        <li class="py-3">
+                            <a href="{% url 'service_detail' related.slug %}" class="flex items-center hover:text-green-600 transition duration-300">
+                                {% if related.image %}
+                                <img src="{{ related.image.url }}" alt="{{ related.name }}" class="w-12 h-12 object-cover rounded-md mr-3">
+                                {% else %}
+                                <div class="w-12 h-12 bg-green-100 rounded-md flex items-center justify-center mr-3">
+                                    <span class="text-green-600 text-xl">{{ related.name|slice:":1" }}</span>
+                                </div>
+                                {% endif %}
+                                <div>
+                                    <h4 class="font-bold">{{ related.name }}</h4>
+                                    {% if related.price %}
+                                    <p class="text-sm text-gray-600">${{ related.price }} {{ related.price_suffix }}</p>
+                                    {% endif %}
+                                </div>
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-16 bg-green-800 text-white">
+    <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold mb-4">Ready to Transform Your Outdoor Space?</h2>
+        <p class="text-xl mb-8 max-w-3xl mx-auto">Our professional team is ready to help you bring your landscaping vision to life.</p>
+        <div class="flex flex-wrap justify-center gap-4">
+            <a href="{% url 'contact' %}" class="bg-white hover:bg-gray-100 text-green-800 font-bold py-3 px-6 rounded-lg transition duration-300">
+                Contact Us
+            </a>
+            <a href="{% url 'book_service' service.id %}" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg border border-green-600 transition duration-300">
+                Book Now
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

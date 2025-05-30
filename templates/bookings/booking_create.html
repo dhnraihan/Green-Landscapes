@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}Book a Service - Green Landscapes{% endblock %}
+
+{% block content %}
+<!-- Booking Header -->
+<section class="bg-green-800 text-white py-16">
+    <div class="container mx-auto px-4 text-center">
+        <h1 class="text-4xl font-bold mb-4">Book a Service</h1>
+        <p class="text-xl max-w-3xl mx-auto">Schedule your landscaping service with our professional team</p>
+    </div>
+</section>
+
+<!-- Booking Form -->
+<section class="py-16">
+    <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+            <div class="bg-white p-8 rounded-lg shadow-md booking-form">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="mb-4 p-4 {% if message.tags == 'success' %}bg-green-100 text-green-700{% else %}bg-red-100 text-red-700{% endif %} rounded">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                
+                <form method="post">
+                    {% csrf_token %}
+                    {% crispy form %}
+                </form>
+            </div>
+            
+            <div class="mt-8 bg-gray-50 p-6 rounded-lg">
+                <h3 class="text-xl font-bold mb-4 text-green-800">Booking Information</h3>
+                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                    <li>Bookings are available Monday through Saturday, 8:00 AM to 5:00 PM.</li>
+                    <li>All bookings are subject to confirmation based on availability.</li>
+                    <li>You will receive a confirmation email once your booking is confirmed.</li>
+                    <li>Please provide accurate contact information for service coordination.</li>
+                    <li>We recommend booking at least 3-5 days in advance for regular services.</li>
+                    <li>For emergency services, please contact us directly at (123) 456-7890.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Related Services -->
+<section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold mb-2">Our Popular Services</h2>
+            <p class="text-gray-600">Explore our most requested landscaping services</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {% for service in services|slice:":3" %}
+            <div class="service-card bg-white rounded-lg shadow-md overflow-hidden">
+                {% if service.image %}
+                <img src="{{ service.image.url }}" alt="{{ service.name }}" class="w-full h-48 object-cover">
+                {% else %}
+                <div class="w-full h-48 bg-green-100 flex items-center justify-center">
+                    <span class="text-green-600 text-4xl">
+                        <svg class="h-16 w-16" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M4.553 15.776l.706-.638a7.5 7.5 0 019.553-9.553l.638-.706a8.5 8.5 0 00-10.897 10.897z" clip-rule="evenodd"></path>
+                            <path fill-rule="evenodd" d="M5.354 10.354a5 5 0 10-.708-.708l-3 3a.5.5 0 00.708.708l3-3z" clip-rule="evenodd"></path>
+                        </svg>
+                    </span>
+                </div>
+                {% endif %}
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">{{ service.name }}</h3>
+                    <p class="text-gray-600 mb-4">{{ service.short_description }}</p>
+                    <a href="{% url 'service_detail' service.slug %}" class="text-green-800 hover:text-green-600">
+                        View Details →
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add date validation to prevent booking in the past
+        const dateInput = document.querySelector('input[name="date"]');
+        if (dateInput) {
+            const today = new Date();
+            const dd = String(today.getDate()).padStart(2, '0');
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const yyyy = today.getFullYear();
+            const currentDate = yyyy + '-' + mm + '-' + dd;
+            dateInput.setAttribute('min', currentDate);
+            
+            // Add event listener to service selection to update available times
+            const serviceSelect = document.querySelector('select[name="service"]');
+            if (serviceSelect) {
+                serviceSelect.addEventListener('change', function() {
+                    checkAvailableTimes();
+                });
+            }
+            
+            // Add event listener to date selection to update available times
+            dateInput.addEventListener('change', function() {
+                checkAvailableTimes();
+            });
+        }
+        
+        function checkAvailableTimes() {
+            const selectedDate = dateInput.value;
+            const serviceId = document.querySelector('select[name="service"]').value;
+            
+            if (selectedDate && serviceId) {
+                // In a real implementation, this would make an AJAX call to check available times
+                // For this template, we're just showing how it would work
+                
+                // Example of how to make the API call:
+                // fetch(`/bookings/api/available-time-slots/?date=${selectedDate}`)
+                //     .then(response => response.json())
+                //     .then(data => {
+                //         // Update the time slot dropdown with available slots
+                //         const timeSlotSelect = document.querySelector('select[name="time_slot"]');
+                //         // Clear existing options except the first one
+                //         while (timeSlotSelect.options.length > 1) {
+                //             timeSlotSelect.remove(1);
+                //         }
+                //         
+                //         // Add available time slots
+                //         data.time_slots.forEach(slot => {
+                //             const option = document.createElement('option');
+                //             option.value = slot.id;
+                //             option.textContent = slot.time;
+                //             timeSlotSelect.appendChild(option);
+                //         });
+                //     });
+            }
+        }
+    });
+</script>
+{% endblock %}

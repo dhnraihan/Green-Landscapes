@@ -1,0 +1,189 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Before & After Transformations - Green Landscapes{% endblock %}
+
+{% block content %}
+<!-- Before & After Header -->
+<section class="bg-green-800 text-white py-16">
+    <div class="container mx-auto px-4 text-center">
+        <h1 class="text-4xl font-bold mb-4">Before & After Transformations</h1>
+        <p class="text-xl max-w-3xl mx-auto">See the dramatic difference our landscaping services can make</p>
+    </div>
+</section>
+
+<!-- Categories Filter -->
+{% if categories %}
+<section class="py-8 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-wrap justify-center gap-4 gallery-filters">
+            <button data-filter="all" class="gallery-filter-btn active bg-green-600 text-white px-4 py-2 rounded-full shadow-sm hover:shadow-md transition duration-300">
+                All Transformations
+            </button>
+            
+            {% for category in categories %}
+            <button data-filter="{{ category.slug }}" class="gallery-filter-btn bg-white text-green-700 px-4 py-2 rounded-full shadow-sm hover:shadow-md transition duration-300">
+                {{ category.name }}
+            </button>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Before & After Grid -->
+<section class="py-16">
+    <div class="container mx-auto px-4">
+        {% if before_after_images %}
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                {% for item in before_after_images %}
+                <div class="gallery-item" data-category="{{ item.category.slug }}">
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                        <div class="before-after-slider h-96 relative">
+                            {% if item.after_image and item.after_image.url %}
+                                <img src="{{ item.after_image.url }}" alt="After: {{ item.title|default:'After transformation' }}" class="w-full h-full object-cover slider-after absolute inset-0">
+                            {% else %}
+                                <div class="w-full h-full bg-gray-200 flex items-center justify-center">
+                                    <span class="text-gray-500">After image not available</span>
+                                </div>
+                            {% endif %}
+                            <div class="slider-before h-full">
+                                {% if item.before_image and item.before_image.url %}
+                                    <img src="{{ item.before_image.url }}" alt="Before: {{ item.title|default:'Before transformation' }}" class="w-full h-full object-cover">
+                                {% else %}
+                                    <div class="w-full h-full bg-gray-100 flex items-center justify-center">
+                                        <span class="text-gray-500">Before image not available</span>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            {% if item.after_image and item.after_image.url and item.before_image and item.before_image.url %}
+                                <div class="slider-handle"></div>
+                            {% endif %}
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-bold text-xl mb-1">{{ item.title }}</h3>
+                            <p class="text-gray-600 mb-2">{{ item.category.name }}</p>
+                            {% if item.location %}
+                            <p class="text-gray-500 flex items-center">
+                                <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                                {{ item.location }}
+                            </p>
+                            {% endif %}
+                            {% if item.completion_date %}
+                            <p class="text-gray-500 flex items-center mt-1">
+                                <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                                Completed: {{ item.completion_date|date:"F Y" }}
+                            </p>
+                            {% endif %}
+                            <div class="mt-3">
+                                <p class="text-gray-700">{{ item.description|truncatewords:30 }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="text-center py-12">
+                <p class="text-gray-600">No before & after transformations available at the moment. Please check back later for updates.</p>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- How It Works -->
+<section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold mb-2">Our Transformation Process</h2>
+            <p class="text-gray-600 max-w-3xl mx-auto">How we turn ordinary outdoor spaces into beautiful landscapes</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-green-600 text-2xl font-bold">1</span>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Consultation & Design</h3>
+                <p class="text-gray-600">We start with a thorough consultation to understand your vision and needs, followed by a custom landscape design.</p>
+            </div>
+            
+            <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-green-600 text-2xl font-bold">2</span>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Professional Implementation</h3>
+                <p class="text-gray-600">Our skilled team brings the design to life using quality materials and professional techniques.</p>
+            </div>
+            
+            <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-green-600 text-2xl font-bold">3</span>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Maintenance & Care</h3>
+                <p class="text-gray-600">We provide ongoing maintenance services to ensure your landscape continues to thrive and look beautiful.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-16 bg-green-800 text-white">
+    <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold mb-4">Ready for Your Own Transformation?</h2>
+        <p class="text-xl mb-8 max-w-3xl mx-auto">Let us transform your outdoor space into a beautiful landscape you'll love.</p>
+        <div class="flex flex-wrap justify-center gap-4">
+            <a href="{% url 'contact' %}" class="bg-white hover:bg-gray-100 text-green-800 font-bold py-3 px-6 rounded-lg transition duration-300">
+                Get a Free Consultation
+            </a>
+            <a href="{% url 'bookings' %}" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg border border-green-600 transition duration-300">
+                Book a Service
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize before/after sliders
+        const sliders = document.querySelectorAll('.before-after-slider');
+        if (sliders.length > 0) {
+            initBeforeAfterSliders();
+        }
+        
+        // Initialize gallery filtering
+        const filterButtons = document.querySelectorAll('.gallery-filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Update active button
+                filterButtons.forEach(btn => btn.classList.remove('active', 'bg-green-600', 'text-white'));
+                filterButtons.forEach(btn => btn.classList.add('bg-white', 'text-green-700'));
+                button.classList.remove('bg-white', 'text-green-700');
+                button.classList.add('active', 'bg-green-600', 'text-white');
+                
+                const filterValue = button.getAttribute('data-filter');
+                
+                // Filter gallery items
+                galleryItems.forEach(item => {
+                    if (filterValue === 'all') {
+                        item.style.display = 'block';
+                    } else if (item.getAttribute('data-category') === filterValue) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    });
+</script>
+{% endblock %}

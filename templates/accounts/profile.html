@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}My Profile - Green Landscapes{% endblock %}
+
+{% block content %}
+<!-- Profile Header -->
+<section class="bg-green-800 text-white py-16">
+    <div class="container mx-auto px-4 text-center">
+        <h1 class="text-4xl font-bold mb-4">My Profile</h1>
+        <p class="text-xl max-w-3xl mx-auto">Update your personal information and preferences</p>
+    </div>
+</section>
+
+<!-- Profile Form -->
+<section class="py-16">
+    <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="p-4 {% if message.tags == 'success' %}bg-green-100 text-green-700{% else %}bg-red-100 text-red-700{% endif %}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                
+                <div class="p-6">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="flex flex-wrap items-start mb-8">
+                            <div class="w-full md:w-1/4 mb-4 md:mb-0">
+                                {% if user.profile.profile_image and user.profile.profile_image.url %}
+                                    <img src="{{ user.profile.profile_image.url }}" alt="{{ user.get_full_name|default:'User' }}" class="w-32 h-32 rounded-full object-cover mx-auto">
+                                {% else %}
+                                    <div class="w-32 h-32 rounded-full bg-green-100 flex items-center justify-center mx-auto">
+                                        <span class="text-green-600 text-4xl font-bold">
+                                            {% if user.first_name %}{{ user.first_name|slice:":1" }}{% endif %}
+                                            {% if user.last_name %}{{ user.last_name|slice:":1" }}{% endif %}
+                                            {% if not user.first_name and not user.last_name %}U{% endif %}
+                                        </span>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="w-full md:w-3/4">
+                                {% crispy form %}
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Account Settings -->
+            <div class="mt-8 bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="px-6 py-4 bg-gray-50 border-b border-gray-200">
+                    <h2 class="text-xl font-bold text-green-800">Account Settings</h2>
+                </div>
+                
+                <div class="p-6">
+                    <div class="mb-6">
+                        <h3 class="text-lg font-bold mb-2 text-gray-700">Change Password</h3>
+                        <p class="text-gray-600 mb-3">Update your password to keep your account secure.</p>
+                        <a href="{% url 'password_change' %}" class="inline-block bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded transition duration-300">
+                            Change Password
+                        </a>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-bold mb-2 text-gray-700">Email Preferences</h3>
+                        <p class="text-gray-600 mb-3">Manage your notification preferences.</p>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="email_notifications" class="form-checkbox h-5 w-5 text-green-600" checked>
+                            <label for="email_notifications" class="ml-2 text-gray-700">Receive email notifications for booking updates</label>
+                        </div>
+                        <div class="flex items-center mt-2">
+                            <input type="checkbox" id="promotional_emails" class="form-checkbox h-5 w-5 text-green-600" checked>
+                            <label for="promotional_emails" class="ml-2 text-gray-700">Receive promotional emails and special offers</label>
+                        </div>
+                        <button class="mt-3 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-300">
+                            Save Preferences
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Account Actions -->
+<section class="py-8 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="px-6 py-4 bg-gray-50 border-b border-gray-200">
+                    <h2 class="text-xl font-bold text-green-800">Account Actions</h2>
+                </div>
+                
+                <div class="p-6">
+                    <div class="flex flex-wrap gap-4">
+                        <a href="{% url 'dashboard' %}" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-300">
+                            Go to Dashboard
+                        </a>
+                        <a href="{% url 'booking_list' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300">
+                            View My Bookings
+                        </a>
+                        <a href="{% url 'logout' %}" class="inline-block bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-300">
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

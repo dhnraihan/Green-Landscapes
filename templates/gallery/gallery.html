@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Project Gallery - Green Landscapes{% endblock %}
+
+{% block content %}
+<!-- Gallery Header -->
+<section class="bg-green-800 text-white py-16">
+    <div class="container mx-auto px-4 text-center">
+        <h1 class="text-4xl font-bold mb-4">Our Project Gallery</h1>
+        <p class="text-xl max-w-3xl mx-auto">View our completed landscaping projects and see the quality of our work</p>
+    </div>
+</section>
+
+<!-- Categories Filter -->
+{% if categories %}
+<section class="py-8 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-wrap justify-center gap-4 gallery-filters">
+            <button data-filter="all" class="gallery-filter-btn active bg-green-600 text-white px-4 py-2 rounded-full shadow-sm hover:shadow-md transition duration-300">
+                All Projects
+            </button>
+            
+            {% for category in categories %}
+            <button data-filter="{{ category.slug }}" class="gallery-filter-btn bg-white text-green-700 px-4 py-2 rounded-full shadow-sm hover:shadow-md transition duration-300">
+                {{ category.name }}
+            </button>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Gallery Grid -->
+<section class="py-16">
+    <div class="container mx-auto px-4">
+        {% if projects %}
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {% for project in projects %}
+                <div class="gallery-item" data-category="{{ project.category.slug }}">
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden h-full">
+                        <div class="relative overflow-hidden">
+                            {% if project.image %}
+                                <img src="{{ project.image.url }}" alt="{{ project.title }}" class="w-full h-64 object-cover gallery-image">
+                            {% else %}
+                                <div class="w-full h-64 bg-green-100 flex items-center justify-center">
+                                    <span class="text-green-800 font-semibold">{{ project.title }}</span>
+                                </div>
+                            {% endif %}
+                            <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-40 flex items-center justify-center transition-all duration-300">
+                                <div class="p-4 text-white text-center opacity-0 hover:opacity-100">
+                                    <span class="text-4xl">+</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-bold text-lg mb-1">{{ project.title }}</h3>
+                            <p class="text-gray-600 text-sm mb-2">{{ project.category.name }}</p>
+                            {% if project.location %}
+                            <p class="text-gray-500 text-sm flex items-center">
+                                <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                                {{ project.location }}
+                            </p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="text-center py-12">
+                <p class="text-gray-600">No projects available at the moment. Please check back later for updates to our gallery.</p>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Before & After Section -->
+{% if before_after_images %}
+<section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold mb-2">Before & After Transformations</h2>
+            <p class="text-gray-600">See the dramatic changes our landscaping services can achieve</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            {% for item in before_after_images %}
+            <div class="before-after-slider h-96 relative rounded-lg overflow-hidden shadow-xl">
+                {% if item.after_image %}
+                    <img src="{{ item.after_image.url }}" alt="After: {{ item.title }}" class="w-full h-full object-cover slider-after absolute inset-0">
+                {% else %}
+                    <div class="w-full h-full bg-green-100 flex items-center justify-center slider-after absolute inset-0">
+                        <span class="text-green-800 font-semibold">After</span>
+                    </div>
+                {% endif %}
+                <div class="slider-before" style="width: 50%;">
+                    {% if item.before_image %}
+                        <img src="{{ item.before_image.url }}" alt="Before: {{ item.title }}" class="w-full h-full object-cover">
+                    {% else %}
+                        <div class="w-full h-full bg-gray-200 flex items-center justify-center">
+                            <span class="text-gray-800 font-semibold">Before</span>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="slider-handle"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent text-white">
+                    <h3 class="font-bold text-lg">{{ item.title }}</h3>
+                    <p>{{ item.location }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-10">
+            <a href="{% url 'before_after' %}" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+                View All Before & After Projects
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- CTA Section -->
+<section class="py-16 bg-green-800 text-white">
+    <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold mb-4">Ready to Transform Your Outdoor Space?</h2>
+        <p class="text-xl mb-8 max-w-3xl mx-auto">Contact us today to discuss your landscaping project and get a free consultation.</p>
+        <div class="flex flex-wrap justify-center gap-4">
+            <a href="{% url 'contact' %}" class="bg-white hover:bg-gray-100 text-green-800 font-bold py-3 px-6 rounded-lg transition duration-300">
+                Contact Us
+            </a>
+            <a href="{% url 'bookings' %}" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg border border-green-600 transition duration-300">
+                Book a Service
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize gallery filtering
+        const filterButtons = document.querySelectorAll('.gallery-filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Update active button
+                filterButtons.forEach(btn => btn.classList.remove('active', 'bg-green-600', 'text-white'));
+                filterButtons.forEach(btn => btn.classList.add('bg-white', 'text-green-700'));
+                button.classList.remove('bg-white', 'text-green-700');
+                button.classList.add('active', 'bg-green-600', 'text-white');
+                
+                const filterValue = button.getAttribute('data-filter');
+                
+                // Filter gallery items
+                galleryItems.forEach(item => {
+                    if (filterValue === 'all') {
+                        item.style.display = 'block';
+                    } else if (item.getAttribute('data-category') === filterValue) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Initialize before/after sliders
+        const sliders = document.querySelectorAll('.before-after-slider');
+        if (sliders.length > 0) {
+            initBeforeAfterSliders();
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Booking Confirmed - Green Landscapes{% endblock %}
+
+{% block content %}
+<section class="py-20 bg-green-50">
+    <div class="container mx-auto px-4 text-center">
+        <div class="bg-white p-8 rounded-lg shadow-md max-w-2xl mx-auto">
+            <div class="text-green-600 mb-6">
+                <svg class="h-20 w-20 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+            </div>
+            
+            <h1 class="text-3xl font-bold mb-4 text-green-800">Booking Confirmed!</h1>
+            <p class="text-lg mb-6 text-gray-700">Your service appointment has been scheduled successfully. We'll send you a confirmation email shortly with the details of your booking.</p>
+            
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="{% url 'booking_list' %}" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+                    View My Bookings
+                </a>
+                <a href="{% url 'home' %}" class="bg-white hover:bg-gray-100 text-green-800 font-bold py-3 px-6 rounded-lg border border-green-600 transition duration-300">
+                    Return to Home
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- What to Expect -->
+<section class="py-16">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold mb-2">What to Expect Next</h2>
+            <p class="text-gray-600">Here's what happens after you book a service with us</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="text-center p-6">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-green-600 text-2xl font-bold">1</span>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Confirmation</h3>
+                <p class="text-gray-600">You'll receive a confirmation email with your booking details.</p>
+            </div>
+            
+            <div class="text-center p-6">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-green-600 text-2xl font-bold">2</span>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Pre-Service Call</h3>
+                <p class="text-gray-600">Our team will call you 1-2 days before to confirm your appointment.</p>
+            </div>
+            
+            <div class="text-center p-6">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-green-600 text-2xl font-bold">3</span>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Service Day</h3>
+                <p class="text-gray-600">Our professional team will arrive at the scheduled time to perform the service.</p>
+            </div>
+            
+            <div class="text-center p-6">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-green-600 text-2xl font-bold">4</span>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Follow-up</h3>
+                <p class="text-gray-600">We'll follow up to ensure you're completely satisfied with our service.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Need to Reschedule -->
+<section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold mb-4">Need to Reschedule?</h2>
+        <p class="text-lg mb-6 max-w-3xl mx-auto">If you need to reschedule your appointment, please contact us at least 24 hours in advance.</p>
+        <a href="{% url 'contact' %}" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+            Contact Us
+        </a>
+    </div>
+</section>
+{% endblock %}
