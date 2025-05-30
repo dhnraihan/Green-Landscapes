@@ -23,7 +23,6 @@ A comprehensive website for a landscaping service business built with Django. Th
 
 - **Backend**: 
   - Django 5.2
-  - Django REST Framework (for API endpoints)
   - Django Allauth (for authentication)
   - Django Crispy Forms (for form rendering)
 

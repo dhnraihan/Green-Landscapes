@@ -124,8 +124,9 @@
 </section>
 
 <!-- Book Again -->
-<section class="py-16 bg-green-800 text-white">
-    <div class="container mx-auto px-4 text-center">
+<section class="relative py-24 text-white bg-cover bg-center bg-no-repeat" style="background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('{% static 'images/cover2.webp' %}')">
+    <div class="absolute inset-0 bg-black/40"></div>
+    <div class="container mx-auto px-4 text-center relative z-10">
         <h2 class="text-3xl font-bold mb-4">Need Another Service?</h2>
         <p class="text-xl mb-8 max-w-3xl mx-auto">Book your next landscaping service with us today.</p>
         <a href="{% url 'bookings:bookings' %}" class="inline-block bg-white hover:bg-gray-100 text-green-800 font-bold py-3 px-6 rounded-lg transition duration-300">
