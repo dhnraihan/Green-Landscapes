@@ -3,6 +3,8 @@ from django.views.generic import CreateView, UpdateView, TemplateView, View
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LogoutView as BaseLogoutView
+
+
 from django.urls import reverse_lazy
 from django.contrib.auth import login, logout
 from django.contrib import messages
@@ -10,10 +12,33 @@ from django.utils import timezone
 from django.http import HttpResponseRedirect
 from django.views.decorators.http import require_http_methods
 from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 
 from .models import UserProfile
 from .forms import UserProfileForm, CustomUserCreationForm
 from bookings.models import Booking
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+class UpdateBookingStatusView(LoginRequiredMixin, View):
+    def post(self, request, booking_id):
+        booking = get_object_or_404(Booking, id=booking_id)
+        status_name = request.POST.get('status')
+        
+        try:
+            status = BookingStatus.objects.get(name=status_name)
+            booking.status = status
+            booking.save()
+            
+            # Send email notification to user about status change
+            # You can implement this using Django's send_mail
+            
+            messages.success(request, f'Booking status updated to {status_name}.')
+            return JsonResponse({'success': True, 'status': status_name, 'status_display': status.get_name_display()})
+        except BookingStatus.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'Invalid status'}, status=400)
+
+
 
 class RegisterView(CreateView):
     form_class = CustomUserCreationForm

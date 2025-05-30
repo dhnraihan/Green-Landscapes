@@ -45,7 +45,12 @@
                                 {% endif %}
                             </div>
                             <div class="w-full md:w-3/4">
-                                {% crispy form %}
+                                {{ form.as_p }}
+                                <div class="mt-6 flex justify-end">
+                                    <button type="submit" class="px-6 py-2 bg-green-600 text-white font-medium rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors">
+                                        Update Profile
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </form>

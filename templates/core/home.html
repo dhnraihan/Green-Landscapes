@@ -5,8 +5,9 @@
 
 {% block content %}
 <!-- Hero Section -->
-<section class="hero flex items-center justify-center text-white">
-    <div class="container mx-auto px-4 py-32 text-center">
+<section class="relative flex items-center justify-center text-white min-h-[80vh] bg-cover bg-center bg-no-repeat" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{% static 'images/hero.webp' %}');">
+    <div class="absolute inset-0 bg-black/30"></div>
+    <div class="container mx-auto px-4 py-48 text-center relative z-10">
         <h1 class="text-4xl md:text-6xl font-bold mb-4 animate-on-scroll">Transform Your Outdoor Space</h1>
         <p class="text-xl mb-8 animate-on-scroll">Professional landscaping services to enhance your property's beauty and value</p>
         <div class="flex flex-wrap justify-center gap-4">
@@ -260,8 +261,9 @@
 {% endif %}
 
 <!-- CTA Section -->
-<section class="py-16 bg-green-800 text-white">
-    <div class="container mx-auto px-4 text-center">
+<section class="relative py-24 text-white bg-cover bg-center bg-no-repeat bg-fixed" style="background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('{% static 'images/cover.webp' %}');">
+    <div class="absolute inset-0 bg-black/40"></div>
+    <div class="container mx-auto px-4 text-center relative z-10">
         <h2 class="text-3xl font-bold mb-4">Ready to Transform Your Outdoor Space?</h2>
         <p class="text-xl mb-8 max-w-3xl mx-auto">Whether you need regular lawn maintenance, a complete garden redesign, or anything in between, we're here to help you create the outdoor space of your dreams.</p>
         <div class="flex flex-wrap justify-center gap-4">

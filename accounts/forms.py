@@ -1,8 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, Row, Column
 
 from .models import UserProfile
 
@@ -17,20 +15,15 @@ class CustomUserCreationForm(UserCreationForm):
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.form_method = 'post'
-        self.helper.layout = Layout(
-            'username',
-            Row(
-                Column('first_name', css_class='form-group col-md-6 mb-3'),
-                Column('last_name', css_class='form-group col-md-6 mb-3'),
-                css_class='row'
-            ),
-            'email',
-            'password1',
-            'password2',
-            Submit('submit', 'Register', css_class='btn btn-primary mt-3')
-        )
+        # Add Tailwind classes to form fields
+        for field_name, field in self.fields.items():
+            field.widget.attrs.update({
+                'class': 'w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500',
+                'placeholder': field.label
+            })
+        # Style specific fields
+        self.fields['first_name'].widget.attrs.update({'class': 'w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500'})
+        self.fields['last_name'].widget.attrs.update({'class': 'w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500'})
     
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -52,8 +45,6 @@ class UserProfileForm(forms.ModelForm):
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.form_method = 'post'
         
         # If we have an instance, initialize the form fields with user data
         if self.instance and self.instance.pk:
@@ -61,24 +52,17 @@ class UserProfileForm(forms.ModelForm):
             self.fields['last_name'].initial = self.instance.user.last_name
             self.fields['email'].initial = self.instance.user.email
         
-        self.helper.layout = Layout(
-            Row(
-                Column('first_name', css_class='form-group col-md-6 mb-3'),
-                Column('last_name', css_class='form-group col-md-6 mb-3'),
-                css_class='row'
-            ),
-            'email',
-            'phone',
-            'address',
-            Row(
-                Column('city', css_class='form-group col-md-6 mb-3'),
-                Column('state', css_class='form-group col-md-6 mb-3'),
-                css_class='row'
-            ),
-            'zip_code',
-            'profile_image',
-            Submit('submit', 'Update Profile', css_class='btn btn-primary mt-3')
-        )
+        # Add Tailwind classes to all fields
+        for field_name, field in self.fields.items():
+            if field_name != 'profile_image':
+                field.widget.attrs.update({
+                    'class': 'w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500',
+                    'placeholder': field.label
+                })
+        # Style specific fields
+        self.fields['profile_image'].widget.attrs.update({
+            'class': 'block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100'
+        })
     
     def save(self, commit=True):
         profile = super().save(commit=False)

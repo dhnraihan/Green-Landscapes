@@ -2,6 +2,7 @@ from django.urls import path, include, reverse_lazy
 from django.contrib.auth import views as auth_views
 from django.views.generic import RedirectView
 from . import views
+from .views import UpdateBookingStatusView
 
 app_name = 'accounts'
 
@@ -9,6 +10,9 @@ urlpatterns = [
     # Authentication URLs
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('logout/', views.CustomLogoutView.as_view(), name='logout'),
+    
+    # Admin booking management
+    path('booking/<int:booking_id>/update-status/', UpdateBookingStatusView.as_view(), name='update_booking_status'),
     
     # User management
     path('register/', views.RegisterView.as_view(), name='register'),

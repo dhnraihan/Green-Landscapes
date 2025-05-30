@@ -26,9 +26,14 @@
                     {% endfor %}
                 {% endif %}
                 
-                <form method="post">
+                <form method="post" class="space-y-6">
                     {% csrf_token %}
-                    {% crispy form %}
+                    {{ form.as_p }}
+                    <div class="flex items-center justify-end">
+                        <button type="submit" class="px-6 py-3 bg-green-600 text-white font-medium rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors">
+                            Register
+                        </button>
+                    </div>
                 </form>
                 
                 <div class="mt-4 text-center">

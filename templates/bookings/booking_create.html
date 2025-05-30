@@ -6,8 +6,9 @@
 
 {% block content %}
 <!-- Booking Header -->
-<section class="bg-green-800 text-white py-16">
-    <div class="container mx-auto px-4 text-center">
+<section class="relative text-white py-24 bg-cover bg-center bg-no-repeat" style="background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('{% static 'images/cover2.webp' %}')">
+    <div class="absolute inset-0 bg-black/40"></div>
+    <div class="container mx-auto px-4 text-center relative z-10">
         <h1 class="text-4xl font-bold mb-4">Book a Service</h1>
         <p class="text-xl max-w-3xl mx-auto">Schedule your landscaping service with our professional team</p>
     </div>
@@ -26,9 +27,14 @@
                     {% endfor %}
                 {% endif %}
                 
-                <form method="post">
+                <form method="post" class="space-y-6">
                     {% csrf_token %}
-                    {% crispy form %}
+                    {{ form.as_p }}
+                    <div class="flex justify-end">
+                        <button type="submit" class="px-6 py-3 bg-green-600 text-white font-medium rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors">
+                            Book Now
+                        </button>
+                    </div>
                 </form>
             </div>
             

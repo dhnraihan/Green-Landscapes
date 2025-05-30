@@ -1,6 +1,4 @@
 from django import forms
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, Row, Column
 from .models import Booking, BookingTimeSlot
 from services.models import Service
 import datetime
@@ -16,23 +14,29 @@ class BookingForm(forms.ModelForm):
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.form_method = 'post'
-        self.helper.layout = Layout(
-            Row(
-                Column('service', css_class='form-group col-md-6 mb-3'),
-                Column('date', css_class='form-group col-md-6 mb-3'),
-                css_class='row'
-            ),
-            'time_slot',
-            'special_instructions',
-            Row(
-                Column('address', css_class='form-group col-md-6 mb-3'),
-                Column('phone', css_class='form-group col-md-6 mb-3'),
-                css_class='row'
-            ),
-            Submit('submit', 'Book Now', css_class='btn btn-primary mt-3')
-        )
+        # Add Tailwind classes to all fields
+        for field_name, field in self.fields.items():
+            field.widget.attrs.update({
+                'class': 'w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500',
+                'placeholder': field.label
+            })
+        
+        # Style specific fields
+        self.fields['special_instructions'].widget.attrs.update({
+            'class': 'w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 h-32',
+            'placeholder': 'Any special instructions for our team...'
+        })
+        
+        # Style the submit button
+        self.fields['service'].widget.attrs.update({
+            'class': 'w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white'
+        })
+        
+        # Style the date input
+        self.fields['date'].widget.attrs.update({
+            'class': 'w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500',
+            'type': 'date'
+        })
         
         # Get today's date for min date attribute
         today = datetime.date.today()

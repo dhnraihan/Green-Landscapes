@@ -3,6 +3,12 @@
 
 {% block title %}Dashboard - Green Landscapes{% endblock %}
 
+{% block extra_js %}
+{{ block.super }}
+<script src="{% static 'js/booking_status.js' %}"></script>
+{% csrf_token %}
+{% endblock %}
+
 {% block content %}
 <!-- Dashboard Header -->
 <section class="bg-green-800 text-white py-16">
@@ -155,8 +161,34 @@
                                                     {{ booking.status }}
                                                 </span>
                                             </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
                                                 <a href="{% url 'bookings:booking_detail' booking.id %}" class="text-green-600 hover:text-green-900">View Details</a>
+                                                {% if user.is_superuser %}
+                                                    <button 
+                                                        onclick="updateBookingStatus('{{ booking.id }}', 'confirmed')" 
+                                                        class="{% if booking.status.name == 'confirmed' %}font-bold {% endif %}text-blue-600 hover:text-blue-900"
+                                                    >
+                                                        Confirm
+                                                    </button>
+                                                    <button 
+                                                        onclick="updateBookingStatus('{{ booking.id }}', 'in_progress')" 
+                                                        class="{% if booking.status.name == 'in_progress' %}font-bold {% endif %}text-yellow-600 hover:text-yellow-900"
+                                                    >
+                                                        In Progress
+                                                    </button>
+                                                    <button 
+                                                        onclick="updateBookingStatus('{{ booking.id }}', 'completed')" 
+                                                        class="{% if booking.status.name == 'completed' %}font-bold {% endif %}text-green-600 hover:text-green-900"
+                                                    >
+                                                        Complete
+                                                    </button>
+                                                    <button 
+                                                        onclick="updateBookingStatus('{{ booking.id }}', 'cancelled')" 
+                                                        class="{% if booking.status.name == 'cancelled' %}font-bold {% endif %}text-red-600 hover:text-red-900"
+                                                    >
+                                                        Cancel
+                                                    </button>
+                                                {% endif %}
                                             </td>
                                         </tr>
                                         {% endfor %}

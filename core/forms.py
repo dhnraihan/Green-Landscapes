@@ -1,6 +1,4 @@
 from django import forms
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, Row, Column
 
 class ContactForm(forms.Form):
     name = forms.CharField(max_length=100, required=True)
@@ -11,19 +9,21 @@ class ContactForm(forms.Form):
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.form_method = 'post'
-        self.helper.layout = Layout(
-            Row(
-                Column('name', css_class='form-group col-md-6 mb-3'),
-                Column('email', css_class='form-group col-md-6 mb-3'),
-                css_class='row'
-            ),
-            Row(
-                Column('phone', css_class='form-group col-md-6 mb-3'),
-                Column('subject', css_class='form-group col-md-6 mb-3'),
-                css_class='row'
-            ),
-            'message',
-            Submit('submit', 'Send Message', css_class='btn btn-primary mt-3')
-        )
+        # Add Tailwind classes to all fields
+        for field_name, field in self.fields.items():
+            field.widget.attrs.update({
+                'class': 'w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500',
+                'placeholder': field.label
+            })
+        
+        # Style the message textarea specifically
+        self.fields['message'].widget.attrs.update({
+            'class': 'w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 h-32',
+            'placeholder': 'Your message...',
+            'rows': 5
+        })
+        
+        # Style the submit button
+        self.fields['subject'].widget.attrs.update({
+            'class': 'w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white'
+        })

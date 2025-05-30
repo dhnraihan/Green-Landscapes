@@ -2,70 +2,190 @@
 
 A comprehensive website for a landscaping service business built with Django. This website allows customers to view services, browse a portfolio of completed projects, book appointments, and manage their accounts.
 
-## Features
+## ✨ Features
 
-- **Home Page**: Welcoming landing page with featured services, testimonials, and call-to-action buttons
-- **Services**: Browse available landscaping services with detailed descriptions
-- **Gallery**: View portfolio of completed projects with before/after comparisons
-- **Booking System**: Schedule landscaping services with date and time selection
-- **User Accounts**: Register, login, and manage profile and bookings
-- **Admin Dashboard**: Manage services, bookings, and user accounts through Django admin
-- **Responsive Design**: Mobile-friendly interface using Tailwind CSS
+### For Customers
+- **Responsive Design**: Mobile-friendly interface built with Tailwind CSS
+- **Service Catalog**: Browse and search available landscaping services
+- **Project Gallery**: View before/after images of completed projects
+- **Online Booking**: Real-time availability and appointment scheduling
+- **User Dashboard**: Manage bookings, view history, and update profile
+- **Service Areas**: Check if we service your location
 
-## Technical Stack
+### For Administrators
+- **Admin Dashboard**: Comprehensive management interface
+- **Booking Management**: View, confirm, and manage appointments
+- **Portfolio Management**: Showcase completed projects
+- **User Management**: Handle customer accounts and permissions
+- **Service Management**: Add, update, or remove services
 
-- **Backend**: Django 5.2
-- **Frontend**: HTML, Tailwind CSS, JavaScript
-- **Database**: SQLite (default), can be configured for PostgreSQL/MySQL
-- **Authentication**: Django built-in auth system
-- **Form Processing**: Django Crispy Forms
+## 🛠 Technical Stack
 
-## Installation
+- **Backend**: 
+  - Django 5.2
+  - Django REST Framework (for API endpoints)
+  - Django Allauth (for authentication)
+  - Django Crispy Forms (for form rendering)
 
-1. Clone the repository:
-```bash
-git clone https://github.com/dhnraihan/Green-Landscapes.git
-cd Green-Landscapes
+- **Frontend**:
+  - HTML5, CSS3, JavaScript (ES6+)
+  - Tailwind CSS 3.0+ for styling
+  - Alpine.js for interactive components
+  - Responsive design for all devices
+
+- **Database**:
+  - SQLite (development)
+  - PostgreSQL (production-ready)
+
+- **Deployment**:
+  - Gunicorn / uWSGI
+  - Nginx (recommended)
+  - Docker support included
+
+- **Other Features**:
+  - CSRF protection
+  - XSS protection
+  - Secure password hashing
+  - Session management
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Python 3.8+
+- pip (Python package manager)
+- Node.js and npm (for frontend assets)
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/dhnraihan/Green-Landscapes.git
+   cd Green-Landscapes
+   ```
+
+2. **Set up a virtual environment**
+   ```bash
+   # Create virtual environment
+   python -m venv venv
+   
+   # Activate virtual environment
+   # On Windows:
+   .\venv\Scripts\activate
+   # On Unix or MacOS:
+   source venv/bin/activate
+   ```
+
+3. **Install Python dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Set up environment variables**
+   Copy the example environment file and update it with your settings:
+   ```bash
+   cp .env.example .env
+   ```
+   Edit the `.env` file with your configuration.
+
+5. **Apply database migrations**
+   ```bash
+   python manage.py migrate
+   ```
+
+6. **Create a superuser**
+   ```bash
+   python manage.py createsuperuser
+   ```
+
+7. **Install frontend dependencies**
+   ```bash
+   npm install
+   ```
+
+8. **Collect static files**
+   ```bash
+   python manage.py collectstatic --noinput
+   ```
+
+9. **Run the development server**
+   ```bash
+   python manage.py runserver
+   ```
+
+10. **Access the application**
+    - Website: http://127.0.0.1:8000/
+    - Admin: http://127.0.0.1:8000/admin/
+    - API Documentation: http://127.0.0.1:8000/api/docs/
+
+### Development Commands
+
+- Run tests:
+  ```bash
+  python manage.py test
+  ```
+
+- Run with custom settings:
+  ```bash
+  python manage.py runserver --settings=landscaping_project.settings.local
+  ```
+
+- Create new app:
+  ```bash
+  python manage.py startapp your_app_name
+  ```
+
+## 📁 Project Structure
+
+```
+landscaping/
+├── accounts/                 # User authentication and profile management
+├── bookings/                 # Booking and appointment system
+├── core/                     # Core functionality and base templates
+├── gallery/                  # Portfolio and project gallery
+├── services/                 # Service management
+├── static/                   # Static files (CSS, JS, images)
+│   ├── css/
+│   ├── js/
+│   └── images/
+├── templates/                # HTML templates
+│   ├── accounts/
+│   ├── bookings/
+│   ├── core/
+│   ├── gallery/
+│   └── services/
+├── media/                    # User-uploaded files
+├── requirements/             # Python requirements files
+├── .env.example             # Example environment variables
+├── manage.py                # Django management script
+└── README.md                # This file
 ```
 
-2. Create and activate a virtual environment:
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+## 🔧 Configuration
+
+### Environment Variables
+Create a `.env` file in the project root with the following variables:
+
+```env
+DEBUG=True
+SECRET_KEY=your-secret-key-here
+ALLOWED_HOSTS=localhost,127.0.0.1
+DATABASE_URL=sqlite:///db.sqlite3
+EMAIL_BACKEND=django.core.mail.backends.console.EmailBackend
+DEFAULT_FROM_EMAIL=webmaster@example.com
 ```
 
-3. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
+### Database
+By default, the project uses SQLite. For production, consider using PostgreSQL:
 
-4. Apply migrations:
-```bash
-python manage.py migrate
-```
-
-5. Create a superuser for admin access:
-```bash
-python manage.py createsuperuser
-```
-
-6. Run the development server:
-```bash
-python manage.py runserver
-```
-
-7. Access the website at http://127.0.0.1:8000/ and admin at http://127.0.0.1:8000/admin/
-
-## Project Structure
-
-- `core/`: Core app with homepage, contact, and base functionality
-- `services/`: Services app for managing and displaying landscaping services
-- `gallery/`: Gallery app for portfolio and before/after images
-- `bookings/`: Booking system for scheduling services
-- `accounts/`: User account management
-- `templates/`: HTML templates
-- `static/`: Static files (CSS, JS, images)
-- `media/`: User-uploaded content
+1. Install PostgreSQL
+2. Update DATABASE_URL in `.env`:
+   ```
+   DATABASE_URL=postgres://user:password@localhost:5432/dbname
+   ```
+3. Install PostgreSQL adapter:
+   ```bash
+   pip install psycopg2-binary
+   ```
 
 ## Configuration
 
@@ -76,10 +196,37 @@ The main configuration is in `landscaping_project/settings.py`. Key settings to 
 - Email configuration for sending notifications
 - Database settings if switching from SQLite
 
-## Future Features
+## 🚀 Future Features
 
-- Online Payment Integration
-- Blog Section
-- Email Reminders/Notifications
-- Monthly Service Subscription System
-- Multi-language Support
+### In Development
+- [ ] Online payment integration (Stripe/PayPal)
+- [ ] Customer review system
+- [ ] Service area mapping
+- [ ] Employee scheduling
+
+### Planned
+- [ ] Mobile app for customers
+- [ ] Interactive 3D garden designer
+- [ ] Automated quote generation
+- [ ] Integration with weather services
+- [ ] Multi-language support
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a new branch (`git checkout -b feature/your-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin feature/your-feature`)
+5. Create a new Pull Request
+
+
+## 📞 Contact
+
+For support or questions, please contact [Raihan] at [hello@raihan.xyz](mailto:hello@raihan.xyz).
+
+---
+
+<div align="center">
+  <p>Made with ❤️ by Raihan</p>
+  <p>© 2025 Green Landscapes. All rights reserved.</p>
+</div>
