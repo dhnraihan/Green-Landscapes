@@ -2,6 +2,8 @@
 
 A comprehensive website for a landscaping service business built with Django. This website allows customers to view services, browse a portfolio of completed projects, book appointments, and manage their accounts.
 
+![Restaurant Management System](demo.webp)
+
 ## ✨ Features
 
 ### For Customers
