@@ -105,7 +105,7 @@
                                             </span>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                            <a href="{% url 'booking_detail' booking.id %}" class="text-green-600 hover:text-green-900 mr-3">View Details</a>
+                                            <a href="{% url 'bookings:booking_detail' booking.id %}" class="btn btn-sm btn-primary">View Details</a>
                                         </td>
                                     </tr>
                                     {% endfor %}
